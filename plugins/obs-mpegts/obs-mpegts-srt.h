@@ -16,10 +16,8 @@
  */
 
 #pragma once
-#include <obs-module.h>
-#include "obs-ffmpeg-url.h"
+#include "obs-mpegts-common.h"
 #include <srt/srt.h>
-#include <libavformat/avformat.h>
 
 #define POLLING_TIME 100 /// Time in milliseconds between interrupt check
 

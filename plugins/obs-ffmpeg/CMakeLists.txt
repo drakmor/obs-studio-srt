@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.16...3.25)
 legacy_check()
 
 option(ENABLE_FFMPEG_LOGGING "Enables obs-ffmpeg logging" OFF)
-option(ENABLE_NEW_MPEGTS_OUTPUT "Use native SRT/RIST mpegts output" ON)
 
 find_package(
   FFmpeg REQUIRED
@@ -59,29 +58,6 @@ target_link_libraries(
           FFmpeg::avutil
           FFmpeg::swscale
           FFmpeg::swresample)
-
-if(ENABLE_NEW_MPEGTS_OUTPUT)
-  find_package(Librist QUIET)
-  find_package(Libsrt QUIET)
-
-  foreach(_output_lib IN ITEMS Librist Libsrt)
-    if(NOT TARGET ${_output_lib}::${_output_lib})
-      list(APPEND _error_messages "MPEGTS output library ${_output_lib} not found.")
-    endif()
-  endforeach()
-
-  if(_error_messages)
-    list(JOIN "\n" _error_string _error_string)
-    message(
-      FATAL_ERROR
-        "${_error_string}\n Disable this error by setting ENABLE_NEW_MPEGTS_OUTPUT to OFF or providing the build system with required SRT and Rist libraries."
-    )
-  endif()
-
-  target_sources(obs-ffmpeg PRIVATE obs-ffmpeg-mpegts.c obs-ffmpeg-srt.h obs-ffmpeg-rist.h obs-ffmpeg-url.h)
-  target_link_libraries(obs-ffmpeg PRIVATE Librist::Librist Libsrt::Libsrt)
-  target_compile_definitions(obs-ffmpeg PRIVATE NEW_MPEGTS_OUTPUT)
-endif()
 
 if(OS_WINDOWS)
   find_package(AMF 1.4.29 REQUIRED)
