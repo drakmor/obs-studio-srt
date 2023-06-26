@@ -1451,8 +1451,11 @@ struct obs_output_info mpegts_muxer = {
 	.get_properties = mpegts_properties,
 };
 
+extern void load_srt_stats(void);
+
 bool obs_module_load(void)
 {
 	obs_register_output(&mpegts_muxer);
+	load_srt_stats();
 	return true;
 }
