@@ -18,6 +18,9 @@
 #pragma once
 #include "obs-mpegts-common.h"
 #include <srt/srt.h>
+#ifdef _WIN32
+#include <sys/timeb.h>
+#endif
 
 #define POLLING_TIME 100 /// Time in milliseconds between interrupt check
 
