@@ -1,6 +1,6 @@
-find_qt(COMPONENTS Widgets Network Svg Xml COMPONENTS_LINUX Gui)
+find_qt(COMPONENTS Widgets Network Svg Xml Charts COMPONENTS_LINUX Gui)
 
-target_link_libraries(obs-studio PRIVATE Qt::Widgets Qt::Svg Qt::Xml Qt::Network)
+target_link_libraries(obs-studio PRIVATE Qt::Widgets Qt::Svg Qt::Xml Qt::Network Qt::Charts)
 
 set_target_properties(
   obs-studio
